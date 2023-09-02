@@ -20,7 +20,7 @@ An innovative software prototype that will improve life for anyone that needs to
 
 ## Authors
 Guevara Torres
-[@gtkt.dev]
+[@gtkt.dev](https://www.instagram.com/gtkt.dev/)
 
 ## License
 

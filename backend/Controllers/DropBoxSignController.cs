@@ -1,11 +1,11 @@
-﻿using Dropbox.Sign.Model;
+﻿using backend.DTOs;
+using Dropbox.Sign.Model;
 using Microsoft.AspNetCore.Mvc;
 using DBS = DropBoxSign;
 
 namespace backend.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     public class DropBoxSignController : ControllerBase
     {
         [HttpGet("GetAccount")]
@@ -15,7 +15,7 @@ namespace backend.Controllers
         }
 
         [HttpPost("CreateEmbeddedSignature")]
-        public async Task<SignatureRequestGetResponse> CreateSignature(SignatureRequestCreateEmbeddedRequest body)
+        public async Task<SignatureRequestGetResponse> CreateSignature([FromBody]SignatureRequestCreateEmbeddedRequest body)
         {
             return await new DBS().CreateSignature(body);
         }

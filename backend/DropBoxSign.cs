@@ -1,3 +1,4 @@
+using backend.DTOs;
 using Dropbox.Sign.Api;
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
@@ -33,14 +34,13 @@ public class DropBoxSign
         return account;
     }
 
-    public async Task<SignatureRequestGetResponse> CreateSignature(SignatureRequestCreateEmbeddedRequest request)
+    public async Task<SignatureRequestGetResponse> CreateSignature(SignatureRequestCreateEmbeddedRequest body)
     {
-
         var response = new SignatureRequestGetResponse();
 
         try
         {
-            response = await Task.Run(() => signatureRequestApi.SignatureRequestCreateEmbedded(request));
+            response = await Task.Run(() => signatureRequestApi.SignatureRequestCreateEmbedded(body));
         }
         catch (ApiException e)
         {

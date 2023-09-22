@@ -1,4 +1,3 @@
-using backend.DTOs;
 using Dropbox.Sign.Api;
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
@@ -9,11 +8,13 @@ public class DropBoxSign
 
     private static String ApiKey = "3d684057d1a90cf841bc16500d38507217014f92deffc2efaaa3135ea4a1cdb7";
 
-    private protected AccountApi accountApi = new AccountApi(new Configuration { Username = ApiKey });
+    private static Configuration _config = new Configuration {Username = ApiKey};
 
-    private protected SignatureRequestApi signatureRequestApi = new SignatureRequestApi(ApiKey);
+    private protected AccountApi accountApi = new AccountApi(_config);
 
-    private protected EmbeddedApi embeddedApi = new EmbeddedApi(new Configuration { Username = ApiKey });
+    private protected SignatureRequestApi signatureRequestApi = new SignatureRequestApi(_config);
+
+    private protected EmbeddedApi embeddedApi = new EmbeddedApi(_config);
 
     public async Task<AccountGetResponse> AccountGet()
     {
@@ -46,6 +47,12 @@ public class DropBoxSign
         {
             Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
             Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+        catch(UriFormatException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.HResult);
             Console.WriteLine(e.StackTrace);
         }
 

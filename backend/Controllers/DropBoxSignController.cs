@@ -1,5 +1,6 @@
 ﻿using Dropbox.Sign.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata;
 using DBS = DropBoxSign;
 
 namespace backend.Controllers
@@ -7,14 +8,9 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class DropBoxSignController : ControllerBase
     {
-        [HttpGet("GetAccount")]
-        public async Task<AccountGetResponse> GetAccount()
-        {
-            return await new DBS().AccountGet();
-        }
 
         [HttpPost("CreateEmbeddedSignature")]
-        public async Task<SignatureRequestGetResponse> CreateSignature([FromBody]SignatureRequestCreateEmbeddedRequest body)
+        public async Task<SignatureRequestGetResponse> CreateSignature([FromBody] SignatureRequestCreateEmbeddedRequest body)
         {
             return await new DBS().CreateSignature(body);
         }
@@ -22,8 +18,12 @@ namespace backend.Controllers
         [HttpGet("GetEmbeddedSignature")]
         public async Task<EmbeddedSignUrlResponse> GetEmbeddedSignURL(string signature_id)
         {
-            return await new DBS().GetEmbeddedSignURL(signature_id);           
+            return await new DBS().GetEmbeddedSignURL(signature_id);
         }
+
+        
+
+
 
     }
 }

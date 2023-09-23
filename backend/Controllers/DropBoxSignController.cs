@@ -1,4 +1,4 @@
-﻿using Dropbox.Sign.Model;
+﻿using Dropbox.Sign.Model
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
 using DBS = DropBoxSign;
@@ -21,9 +21,33 @@ namespace backend.Controllers
             return await new DBS().GetEmbeddedSignURL(signature_id);
         }
 
-        
+        //Authentication
 
+        [HttpPost("GenerateOAuthToken")]
+        public async Task<OAuthTokenResponse> GenerateOAuthToken([FromBody]OAuthTokenGenerateRequest body)
+        {
+            return await new DBS().OauthTokenGenerate(body);
+        }
 
+        [HttpPost("RefreshOAuthToken")]
+        public async Task<OAuthTokenResponse> RefreshOAuthToken([FromBody]OAuthTokenRefreshRequest body)
+        {
+            return await new DBS().RefreshOAuthToken(body);
+        }
+
+        //Accounts
+
+        [HttpPost("CreateAccount")]
+        public async Task<AccountCreateResponse> CreateAccount([FromBody] AccountCreateRequest body)
+        {
+            return await new DBS().CreateAccount(body);
+        }
+
+        [HttpGet("GetAccount")]
+        public async Task<AccountGetResponse> GetAccount()
+        {
+            return await new DBS().AccountGet();
+        }
 
     }
 }

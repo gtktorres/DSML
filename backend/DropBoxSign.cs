@@ -128,7 +128,7 @@ public class DropBoxSign
         return response;
     }
 
-    public async Task<OAuthTokenResponse> RefreshOathToken(OAuthTokenRefreshRequest body)
+    public async Task<OAuthTokenResponse> RefreshOAuthToken(OAuthTokenRefreshRequest body)
     {
         var response = new OAuthTokenResponse();
 

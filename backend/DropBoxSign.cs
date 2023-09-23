@@ -20,6 +20,26 @@ public class DropBoxSign
     private protected TemplateApi templateApi = new TemplateApi(_config);
 
     private protected OAuthApi oauthApi = new OAuthApi(_config);
+    private protected ApiAppApi apiAppApi = new ApiAppApi(_config);
+
+    public async Task<AccountGetResponse> AccountGet()
+    {
+        var account = new AccountGetResponse();
+    
+        try
+        {
+            account =  await Task.Run(() =>accountApi.AccountGet(null, "gtktorres@gmail.com"));
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+
+        }
+
+        return account;
+    }
 
     public async Task<SignatureRequestGetResponse> CreateSignature(SignatureRequestCreateEmbeddedRequest body)
     {
@@ -87,7 +107,7 @@ public class DropBoxSign
         return response;
     }
 
-    //Authentication
+    //Account methods
     public async Task<AccountCreateResponse> CreateAccount(AccountCreateRequest body)
     {
         var response = new AccountCreateResponse();
@@ -148,22 +168,45 @@ public class DropBoxSign
         return response;
     }
 
-    public async Task<AccountGetResponse> AccountGet()
+    public async Task<AccountGetResponse> UpdateAccount(AccountUpdateRequest body)
     {
-        var account = new AccountGetResponse();
-    
+        var response = new AccountGetResponse();
+
         try
         {
-            account =  await Task.Run(() =>accountApi.AccountGet(null, "gtktorres@gmail.com"));
+
+            response = await Task.Run(() => accountApi.AccountUpdate(body));
+
         }
         catch (ApiException e)
         {
             Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
             Console.WriteLine("Status Code: " + e.ErrorCode);
             Console.WriteLine(e.StackTrace);
-
         }
 
-        return account;
+        return response;
+    }
+
+    public async Task<string> DeleteAccount(string clientId)
+    {
+        string response = "";
+
+        try
+        {
+
+            await Task.Run(() => apiAppApi.ApiAppDelete(clientId));
+            Console.WriteLine("Account deleted.");
+            response = "Account deleted.";
+
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
     }
 }

@@ -8,19 +8,6 @@ namespace backend.Controllers
     [Route("api/[controller]")]
     public class DropBoxSignController : ControllerBase
     {
-
-        [HttpPost("CreateEmbeddedSignature")]
-        public async Task<SignatureRequestGetResponse> CreateSignature([FromBody] SignatureRequestCreateEmbeddedRequest body)
-        {
-            return await new DBS().CreateSignature(body);
-        }
-
-        [HttpGet("GetEmbeddedSignature")]
-        public async Task<EmbeddedSignUrlResponse> GetEmbeddedSignURL(string signature_id)
-        {
-            return await new DBS().GetEmbeddedSignURL(signature_id);
-        }
-
         //Authentication
 
         [HttpPost("GenerateOAuthToken")]
@@ -47,6 +34,34 @@ namespace backend.Controllers
         public async Task<AccountGetResponse> GetAccount()
         {
             return await new DBS().AccountGet();
+        }
+
+        [HttpGet("UpdateAccount")]
+        public async Task<AccountGetResponse> UpdateAccount(AccountUpdateRequest body)
+        {
+            return await new DBS().UpdateAccount(body);
+        }
+
+        [HttpGet("DeleteAccount")]
+        public async Task<string> DeleteAccount(string clientId)
+        {
+            return await new DBS().DeleteAccount(clientId);
+        }
+
+        //Contract
+
+        [HttpPost("CreateContract")]
+
+        [HttpPost("CreateEmbeddedSignature")]
+        public async Task<SignatureRequestGetResponse> CreateSignature([FromBody] SignatureRequestCreateEmbeddedRequest body)
+        {
+            return await new DBS().CreateSignature(body);
+        }
+
+        [HttpGet("GetEmbeddedSignature")]
+        public async Task<EmbeddedSignUrlResponse> GetEmbeddedSignURL(string signature_id)
+        {
+            return await new DBS().GetEmbeddedSignURL(signature_id);
         }
 
     }

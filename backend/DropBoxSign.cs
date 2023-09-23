@@ -21,25 +21,6 @@ public class DropBoxSign
 
     private protected OAuthApi oauthApi = new OAuthApi(_config);
 
-    public async Task<AccountGetResponse> AccountGet()
-    {
-        var account = new AccountGetResponse();
-    
-        try
-        {
-            account =  await Task.Run(() =>accountApi.AccountGet(null, "gtktorres@gmail.com"));
-        }
-        catch (ApiException e)
-        {
-            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
-            Console.WriteLine("Status Code: " + e.ErrorCode);
-            Console.WriteLine(e.StackTrace);
-
-        }
-
-        return account;
-    }
-
     public async Task<SignatureRequestGetResponse> CreateSignature(SignatureRequestCreateEmbeddedRequest body)
     {
         var response = new SignatureRequestGetResponse();
@@ -106,7 +87,7 @@ public class DropBoxSign
         return response;
     }
 
-    //Account methods
+    //Authentication
     public async Task<AccountCreateResponse> CreateAccount(AccountCreateRequest body)
     {
         var response = new AccountCreateResponse();
@@ -165,5 +146,24 @@ public class DropBoxSign
         }
 
         return response;
+    }
+
+    public async Task<AccountGetResponse> AccountGet()
+    {
+        var account = new AccountGetResponse();
+    
+        try
+        {
+            account =  await Task.Run(() =>accountApi.AccountGet(null, "gtktorres@gmail.com"));
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+
+        }
+
+        return account;
     }
 }

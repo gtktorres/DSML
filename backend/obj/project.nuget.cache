@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3jhFuajePPhiz6PA4iipmEGWx1E/ai2P4bhTKpCNKRP/QrVBoHRtfdmxDHSTPqDLfhUjEgUem4yA4wO4RSnkXg==",
+  "dgSpecHash": "e013QRA0xESk7N8YvWF5+pnD5aqkyIp/FbODtxKS5bjcXDq23J6o95zRT7/SBzcrN8CUWG8uTFAj3yeAaW1LMA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Hg\\DSML-1\\backend\\backend.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,7 @@
     "C:\\Users\\Hg\\.nuget\\packages\\jsonsubtypes\\1.9.0\\jsonsubtypes.1.9.0.nupkg.sha512",
     "C:\\Users\\Hg\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\7.0.11\\microsoft.aspnetcore.jsonpatch.7.0.11.nupkg.sha512",
     "C:\\Users\\Hg\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\7.0.11\\microsoft.aspnetcore.mvc.newtonsoftjson.7.0.11.nupkg.sha512",
-    "C:\\Users\\Hg\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",
+    "C:\\Users\\Hg\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.11\\microsoft.aspnetcore.openapi.7.0.11.nupkg.sha512",
     "C:\\Users\\Hg\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Hg\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Hg\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",

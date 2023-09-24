@@ -2,6 +2,9 @@ using Dropbox.Sign.Api;
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
 using Newtonsoft.Json;
+using System.IO;
+using System.Reflection.Metadata;
+using static Dropbox.Api.Sharing.ListFileMembersIndividualResult;
 
 public class DropBoxSign
 {
@@ -15,6 +18,13 @@ public class DropBoxSign
     private protected SignatureRequestApi signatureRequestApi = new SignatureRequestApi(_config);
 
     private protected EmbeddedApi embeddedApi = new EmbeddedApi(_config);
+
+    private protected TemplateApi templateApi = new TemplateApi(_config);
+
+    private protected OAuthApi oauthApi = new OAuthApi(_config);
+    private protected ApiAppApi apiAppApi = new ApiAppApi(_config);
+
+    public enum downloadType { files, datauri, fileurl }
 
     public async Task<AccountGetResponse> AccountGet()
     {
@@ -77,5 +87,170 @@ public class DropBoxSign
         }
 
         return response;
+    }
+
+
+
+    public async Task<TemplateCreateEmbeddedDraftResponse> CreateContract(TemplateCreateEmbeddedDraftRequest body)
+    {
+        var response = new TemplateCreateEmbeddedDraftResponse();
+
+        try
+        {
+
+            response = await Task.Run(() => templateApi.TemplateCreateEmbeddedDraft(body));
+        
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
+    //Account methods
+    public async Task<AccountCreateResponse> CreateAccount(AccountCreateRequest body)
+    {
+        var response = new AccountCreateResponse();
+
+        try
+        {
+
+            response = await Task.Run(() => accountApi.AccountCreate(body));
+
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
+    public async Task<OAuthTokenResponse> OauthTokenGenerate(OAuthTokenGenerateRequest body)
+    {
+        var response = new OAuthTokenResponse();
+
+        try
+        {
+
+            response = await Task.Run(() => oauthApi.OauthTokenGenerate(body));
+
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
+    public async Task<OAuthTokenResponse> RefreshOAuthToken(OAuthTokenRefreshRequest body)
+    {
+        var response = new OAuthTokenResponse();
+
+        try
+        {
+
+            response = await Task.Run(() => oauthApi.OauthTokenRefresh(body));
+
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
+    public async Task<AccountGetResponse> UpdateAccount(AccountUpdateRequest body)
+    {
+        var response = new AccountGetResponse();
+
+        try
+        {
+
+            response = await Task.Run(() => accountApi.AccountUpdate(body));
+
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
+    public async Task<string> DeleteAccount(string clientId)
+    {
+        string response = "";
+
+        try
+        {
+
+            await Task.Run(() => apiAppApi.ApiAppDelete(clientId));
+            Console.WriteLine("Account deleted.");
+            response = "Account deleted.";
+
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
+    public async Task<bool> DownloadFiles(string signatureRequestId, downloadType type)
+    {
+
+        try
+        {
+            switch (type)
+        {
+                case downloadType.files:
+
+                using (FileStream fs = File.Create("file_response.pdf"))
+                {
+                    var resultFiles = signatureRequestApi.SignatureRequestFiles(signatureRequestId, "pdf");
+                    await Task.Run(() => resultFiles.Seek(0, SeekOrigin.Begin));
+                    await Task.Run(() => resultFiles.CopyTo(fs));
+                    fs.Close();
+                    return true;
+                }
+
+                case downloadType.fileurl:
+                    var resultFileURL = signatureRequestApi.SignatureRequestFilesAsFileUrl(signatureRequestId);
+                    return true;
+
+                case downloadType.datauri: 
+                    var resultDataUri = signatureRequestApi.SignatureRequestFilesAsDataUri(signatureRequestId);
+                    return true;
+
+                default:
+                    Console.WriteLine("File download choice is invalid.");
+                    return false;
+            }
+
+        } catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+            return false;
+        }
     }
 }

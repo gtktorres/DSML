@@ -96,7 +96,7 @@ namespace backend.Controllers
         [HttpGet("GetEmbeddedSignature")]
         public async Task<EmbeddedSignUrlResponse> EmbeddedSignUrl(string signature_id)
         {
-            return await new DBS().EmbeddedSignUrl(signature_id);           
+            return await new DBS().EmbeddedSignUrl(signature_id);
         }
         //download files, as fileurl, as datauri
         [HttpPost("DownloadFiles")]

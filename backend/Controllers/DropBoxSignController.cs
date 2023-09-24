@@ -55,7 +55,7 @@ namespace backend.Controllers
         {
             return await new DBS().TemplateCreateEmbeddedDraft(body);
         }
-        //update a files
+        //update a file(s)
         [HttpPost("TemplateUpdateFiles")]
         public async Task<TemplateUpdateFilesResponse> TemplateUpdateFiles(string template_id, [FromBody]TemplateUpdateFilesRequest request)
         {
@@ -73,19 +73,19 @@ namespace backend.Controllers
         {
             return await new DBS().TemplateRemoveUser(template_id, request);
         }
-        //create a contracts with submitted documents
+        //create a contract with submitted documents
         [HttpPost("CreateEmbeddedSignature")]
         public async Task<SignatureRequestGetResponse> SignatureRequestCreateEmbedded([FromBody] SignatureRequestCreateEmbeddedRequest body)
         {
             return await new DBS().SignatureRequestCreateEmbedded(body);
         }
-        //create a contracts with a given template
+        //create a contract with a given template
         [HttpPost("CreateEmbeddedSignatrueWithTemplate")]
         public async Task<SignatureRequestGetResponse> SignatureRequestCreateEmbeddedWithTemplate(SignatureRequestCreateEmbeddedWithTemplateRequest body)
         {
             return await new DBS().SignatureRequestCreateEmbeddedWithTemplate(body);
         }
-        //create a contracts
+        //create contracts via template
         [HttpPost("BulkSendEmbeddedTemplate")]
         public async Task<BulkSendJobSendResponse> SendBulkWithEmbeddedTemplate(SignatureRequestBulkCreateEmbeddedWithTemplateRequest body)
         {

@@ -22,6 +22,7 @@ public class DropBoxSign
     private protected TemplateApi templateApi = new TemplateApi(_config);
 
     private protected OAuthApi oauthApi = new OAuthApi(_config);
+
     private protected ApiAppApi apiAppApi = new ApiAppApi(_config);
 
     public enum downloadType { files, datauri, fileurl }

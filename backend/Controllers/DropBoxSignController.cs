@@ -32,15 +32,15 @@ namespace backend.Controllers
         }
 
         [HttpPost("VerifyAccount")]
-        public async Task<AccountVerifyResponse> AccountVerify([FromBody] AccountVerifyRequest body)
+        public async Task<AccountVerifyResponse> AccountVerify(string email)
         {
-            return await new DBS().AccountVerify(body);
+            return await new DBS().AccountVerify(email);
         }
 
         [HttpGet("GetAccount")]
-        public async Task<AccountGetResponse> AccountGet()
+        public async Task<AccountGetResponse> AccountGet(string email)
         {
-            return await new DBS().AccountGet();
+            return await new DBS().AccountGet(email);
         }
 
         [HttpPut("UpdateAccount")]

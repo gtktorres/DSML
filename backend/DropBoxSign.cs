@@ -88,6 +88,24 @@ public class DropBoxSign
         return response;
     }
 
+    public async Task<AccountVerifyResponse> AccountVerify(AccountVerifyRequest body)
+    {
+        var response = new AccountVerifyResponse();
+
+        try
+        {
+            response = await Task.Run(() => accountApi.AccountVerify(body));
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
     public async Task<AccountGetResponse> AccountUpdate(AccountUpdateRequest body)
     {
         var response = new AccountGetResponse();

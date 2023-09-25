@@ -31,19 +31,25 @@ namespace backend.Controllers
             return await new DBS().AccountCreate(body);
         }
 
+        [HttpPost("VerifyAccount")]
+        public async Task<AccountVerifyResponse> AccountVerify([FromBody] AccountVerifyRequest body)
+        {
+            return await new DBS().AccountVerify(body);
+        }
+
         [HttpGet("GetAccount")]
         public async Task<AccountGetResponse> AccountGet()
         {
             return await new DBS().AccountGet();
         }
 
-        [HttpGet("UpdateAccount")]
+        [HttpPut("UpdateAccount")]
         public async Task<AccountGetResponse> AccountUpdate(AccountUpdateRequest body)
         {
             return await new DBS().AccountUpdate(body);
         }
 
-        [HttpGet("DeleteAccount")]
+        [HttpDelete("DeleteAccount")]
         public async Task<string> ApiAppDelete(string clientId)
         {
             return await new DBS().ApiAppDelete(clientId);
@@ -51,7 +57,7 @@ namespace backend.Controllers
 
         //Contracts
         //create a drafted contract with an embedded template
-        //TODO: [HttpPost("CreateContractTemplate")]
+        //[HttpPost("CreateContractTemplate")]
         //public async Task<TemplateCreateEmbeddedDraftResponse> TemplateCreateEmbeddedDraft([FromBody]TemplateCreateEmbeddedDraftRequest body)
         //{
         //    return await new DBS().TemplateCreateEmbeddedDraft(body);
@@ -81,13 +87,13 @@ namespace backend.Controllers
             return await new DBS().SignatureRequestCreateEmbedded(body);
         }
         //create a contract with a given template
-        //TODO: [HttpPost("CreateEmbeddedSignatrueWithTemplate")]
+        //[HttpPost("CreateEmbeddedSignatrueWithTemplate")]
         //public async Task<SignatureRequestGetResponse> SignatureRequestCreateEmbeddedWithTemplate(SignatureRequestCreateEmbeddedWithTemplateRequest body)
         //{
         //    return await new DBS().SignatureRequestCreateEmbeddedWithTemplate(body);
         //}
         //create contracts via template
-        //TODO: [HttpPost("BulkSendEmbeddedTemplate")]
+        //[HttpPost("BulkSendEmbeddedTemplate")]
         //public async Task<BulkSendJobSendResponse> SendBulkWithEmbeddedTemplate(SignatureRequestBulkCreateEmbeddedWithTemplateRequest body)
         //{
         //    return await new DBS().SendBulkWithEmbeddedTemplate(body);
@@ -105,7 +111,7 @@ namespace backend.Controllers
             return await new DBS().DownloadFiles(signatureRequestId, type);
         }
         //delete contract template
-        [HttpPost("DeleteContractTemplate")]
+        [HttpDelete("DeleteContractTemplate")]
         public async Task<bool> TemplateDelete(string templateId)
         {
             return await new DBS().TemplateDelete(templateId);

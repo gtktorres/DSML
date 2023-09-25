@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection.Metadata;
 using static Dropbox.Api.Sharing.ListFileMembersIndividualResult;
 
-public class DropBoxSign
+public class DropBoxSignAsync
 {
 
     private static String ApiKey = "3d684057d1a90cf841bc16500d38507217014f92deffc2efaaa3135ea4a1cdb7";

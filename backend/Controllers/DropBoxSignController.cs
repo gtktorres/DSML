@@ -1,8 +1,6 @@
 ﻿using Dropbox.Sign.Model;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using static DropBoxSign;
-using DBS = DropBoxSign;
+using DBS = DropBoxSignAsync;
 
 namespace backend.Controllers
 {
@@ -52,11 +50,11 @@ namespace backend.Controllers
         //Contracts
         //create a drafted contract with an embedded template
         [HttpPost("CreateContractTemplate")]
-        public async Task<TemplateCreateEmbeddedDraftResponse> TemplateCreateEmbeddedDraft([FromBody] TemplateCreateEmbeddedDraftRequest body)
-        {
+        //public async Task<TemplateCreateEmbeddedDraftResponse> TemplateCreateEmbeddedDraft([FromBody] TemplateCreateEmbeddedDraftRequest body)
+        //{
             //return await new DBS().TemplateCreateEmbeddedDraft(body);
-            return await Task.Run(() => new TemplateCreateEmbeddedDraftResponse());
-        }
+        //    return await Task.Run(() => new TemplateCreateEmbeddedDraftResponse());
+        //}
         //update a file(s)
         [HttpPost("TemplateUpdateFiles")]
         public async Task<TemplateUpdateFilesResponse> TemplateUpdateFiles(string template_id, [FromBody]TemplateUpdateFilesRequest request)
@@ -102,7 +100,7 @@ namespace backend.Controllers
         }
         //download files, as fileurl, as datauri
         [HttpPost("DownloadFiles")]
-        public async Task<bool> DownloadFiles(string signatureRequestId, downloadType type)
+        public async Task<bool> DownloadFiles(string signatureRequestId, DBS.downloadType type)
         {
             return await new DBS().DownloadFiles(signatureRequestId, type);
         }

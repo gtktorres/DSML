@@ -51,11 +51,11 @@ namespace backend.Controllers
 
         //Contracts
         //create a drafted contract with an embedded template
-        [HttpPost("CreateContractTemplate")]
-        public async Task<TemplateCreateEmbeddedDraftResponse> TemplateCreateEmbeddedDraft([FromBody]TemplateCreateEmbeddedDraftRequest body)
-        {
-            return await new DBS().TemplateCreateEmbeddedDraft(body);
-        }
+        //TODO: [HttpPost("CreateContractTemplate")]
+        //public async Task<TemplateCreateEmbeddedDraftResponse> TemplateCreateEmbeddedDraft([FromBody]TemplateCreateEmbeddedDraftRequest body)
+        //{
+        //    return await new DBS().TemplateCreateEmbeddedDraft(body);
+        //}
         //update a file(s)
         [HttpPost("TemplateUpdateFiles")]
         public async Task<TemplateUpdateFilesResponse> TemplateUpdateFiles(string template_id, [FromBody]TemplateUpdateFilesRequest request)
@@ -81,17 +81,17 @@ namespace backend.Controllers
             return await new DBS().SignatureRequestCreateEmbedded(body);
         }
         //create a contract with a given template
-        [HttpPost("CreateEmbeddedSignatrueWithTemplate")]
-        public async Task<SignatureRequestGetResponse> SignatureRequestCreateEmbeddedWithTemplate(SignatureRequestCreateEmbeddedWithTemplateRequest body)
-        {
-            return await new DBS().SignatureRequestCreateEmbeddedWithTemplate(body);
-        }
+        //TODO: [HttpPost("CreateEmbeddedSignatrueWithTemplate")]
+        //public async Task<SignatureRequestGetResponse> SignatureRequestCreateEmbeddedWithTemplate(SignatureRequestCreateEmbeddedWithTemplateRequest body)
+        //{
+        //    return await new DBS().SignatureRequestCreateEmbeddedWithTemplate(body);
+        //}
         //create contracts via template
-        [HttpPost("BulkSendEmbeddedTemplate")]
-        public async Task<BulkSendJobSendResponse> SendBulkWithEmbeddedTemplate(SignatureRequestBulkCreateEmbeddedWithTemplateRequest body)
-        {
-            return await new DBS().SendBulkWithEmbeddedTemplate(body);
-        }
+        //TODO: [HttpPost("BulkSendEmbeddedTemplate")]
+        //public async Task<BulkSendJobSendResponse> SendBulkWithEmbeddedTemplate(SignatureRequestBulkCreateEmbeddedWithTemplateRequest body)
+        //{
+        //    return await new DBS().SendBulkWithEmbeddedTemplate(body);
+        //}
         //get the signature url of a contract
         [HttpGet("GetEmbeddedSignature")]
         public async Task<EmbeddedSignUrlResponse> EmbeddedSignUrl(string signature_id)

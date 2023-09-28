@@ -1,6 +1,7 @@
 using Dropbox.Sign.Api;
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.IO;
 using System.Reflection.Metadata;
@@ -88,6 +89,27 @@ public class DropBoxSign
         return response;
     }
 
+    public async Task<AccountVerifyResponse> AccountVerify(string email)
+    {
+        var response = new AccountVerifyResponse();
+        var accountVerifyRequest = new AccountVerifyRequest(
+            emailAddress: $"{email}"
+            );
+
+        try
+        {
+            response = await Task.Run(() => accountApi.AccountVerify(accountVerifyRequest));
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
+
     public async Task<AccountGetResponse> AccountUpdate(AccountUpdateRequest body)
     {
         var response = new AccountGetResponse();
@@ -108,13 +130,13 @@ public class DropBoxSign
         return response;
     }
 
-    public async Task<AccountGetResponse> AccountGet()
+    public async Task<AccountGetResponse> AccountGet(string email)
     {
         var account = new AccountGetResponse();
 
         try
         {
-            account = await Task.Run(() => accountApi.AccountGet(null, "gtktorres@gmail.com"));
+            account = await Task.Run(() => accountApi.AccountGet(null, email));
         }
         catch (ApiException e)
         {

@@ -22,7 +22,6 @@ namespace chatGPT.Controllers
         public async Task<IActionResult> CompleteSentence(string query)
         {
             string OutPutResult = "";
-            var openai = new OpenAIAPI("k-hyI4S5pr5knqZT82JGeHT3BlbkFJemmGSDCq8RrstaFWfnmJ");
             var completionRequest = new CompletionRequest();
             completionRequest.Prompt = query;
             completionRequest.Model = OpenAI_API.Models.Model.AdaTextEmbedding;

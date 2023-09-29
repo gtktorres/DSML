@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ffff2f49-20f1-4362-9d7b-b9e963536eff" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.vs/backend/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/15d7c943-947a-47b0-80e7-4a0dd30a4f42.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/2dfb953a-b35e-4015-bc53-ccac4cd12a22.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/37bed7f9-08c4-453f-a50e-ed26a0497bdd.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/435a231c-a34c-4db1-a085-e81519513cde.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/44253620-72ef-48ba-b653-61fbd63b164e.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/467f5fff-0380-4a8c-9b66-ae2464176902.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/77b16457-0b80-4283-9b8e-764fd595e1f5.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/93418ff8-fb57-414e-9887-5060712f6efa.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/9c740fed-f302-42f9-aacf-5620cb46b595.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/FileContentIndex/f18c78de-6b6a-4f27-ac0a-51777100e370.vsidx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.vs/backend/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.vs/backend/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/backend/obj/Debug/net7.0/backend.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/backend/obj/project.nuget.cache" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2Vr2nBRw8p7SW68VlV6LvYr96To" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Hg/DSML-1"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ffff2f49-20f1-4362-9d7b-b9e963536eff" name="Changes" comment="" />
+      <created>1695580042214</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695580042214</updated>
+    </task>
+    <servers />
+  </component>
+</project>

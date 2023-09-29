@@ -1,4 +1,4 @@
-﻿using chatGPT.Services;
+using chatGPT.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace chatGPT.Controllers
@@ -19,10 +19,22 @@ namespace chatGPT.Controllers
 
         [HttpGet()]
         [Route("CompleteSentence")]
-        public async Task<IActionResult> CompleteSentence(string text)
+        public async Task<IActionResult> CompleteSentence(string query)
         {
-            var result = await _openAIService.CompleteSentence(text);
-            return Ok(result);
+            string OutPutResult = "";
+            var openai = new OpenAIAPI("k-hyI4S5pr5knqZT82JGeHT3BlbkFJemmGSDCq8RrstaFWfnmJ");
+            var completionRequest = new CompletionRequest();
+            completionRequest.Prompt = query;
+            completionRequest.Model = OpenAI_API.Models.Model.AdaTextEmbedding;
+
+            var completions = openai.Completions.CreateCompletionAsync(completionRequest);
+
+            foreach (var completion in completions.Result.Completions)
+            {
+                OutPutResult += completion.Text;
+            }
+
+            return Ok(completions);
         }
 
         [HttpPost()]

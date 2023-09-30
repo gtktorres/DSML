@@ -1,18 +1,27 @@
+using backend.Configurations;
+using backend.Services;
 using Dropbox.Sign.Api;
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.IO;
 using System.Reflection.Metadata;
 using static Dropbox.Api.Sharing.ListFileMembersIndividualResult;
 
-public class DropBoxSign
+public class DropboxSignService : IDropboxSignService
 {
+    private static readonly DropboxSignConfig config;
+    private static Configuration _config = new Configuration {Username = config.Key};
 
-    private static String ApiKey = "3d684057d1a90cf841bc16500d38507217014f92deffc2efaaa3135ea4a1cdb7";
+    public DropboxSignService(
 
-    private static Configuration _config = new Configuration {Username = ApiKey};
+            IOptionsMonitor<Configuration> optionsMonitor
+        )
+    {
+        _config = optionsMonitor.CurrentValue;
+    }
 
     private protected AccountApi accountApi = new AccountApi(_config);
 

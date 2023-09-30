@@ -14,23 +14,11 @@ namespace chatGPT.Services
             _openAIConfig = optionsMonitor.CurrentValue;
         }
     
-        public async Task<string> CompleteSentence(string text)
+        public async Task<string> CompleteSentence(string query)
         {
             //api instance
             var api = new OpenAI_API.OpenAIAPI(_openAIConfig.Key);
-            var result = await api.Completions.GetCompletion(text);
-            return result;
-        }
-
-        public async Task<EmbeddingResult> Embeddings(string text)
-        {
-            //api instance
-            var embeddingRequest = new EmbeddingRequest();
-            embeddingRequest.Input = text;
-            embeddingRequest.Model = OpenAI_API.Models.Model.AdaTextEmbedding;
-
-            var api = new OpenAI_API.OpenAIAPI( _openAIConfig.Key);
-            var result = await api.Embeddings.CreateEmbeddingAsync(text);
+            var result = await api.Completions.GetCompletion(query);
             return result;
         }
     }

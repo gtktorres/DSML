@@ -1,5 +1,7 @@
 using chatGPT.Services;
 using Microsoft.AspNetCore.Mvc;
+using OpenAI_API.Completions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace chatGPT.Controllers
 {
@@ -21,26 +23,7 @@ namespace chatGPT.Controllers
         [Route("CompleteSentence")]
         public async Task<IActionResult> CompleteSentence(string query)
         {
-            string OutPutResult = "";
-            var completionRequest = new CompletionRequest();
-            completionRequest.Prompt = query;
-            completionRequest.Model = OpenAI_API.Models.Model.AdaTextEmbedding;
-
-            var completions = openai.Completions.CreateCompletionAsync(completionRequest);
-
-            foreach (var completion in completions.Result.Completions)
-            {
-                OutPutResult += completion.Text;
-            }
-
-            return Ok(completions);
-        }
-
-        [HttpPost()]
-        [Route("Embeddings")]
-        public async Task<IActionResult> Embeddings(string text)
-        {
-            var result = await _openAIService.Embeddings(text);
+            var result = await _openAIService.CompleteSentence(query);
             return Ok(result);
         }
     }

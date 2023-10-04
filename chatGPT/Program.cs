@@ -1,7 +1,4 @@
-using chatGPT.Configurations;
 using chatGPT.Services;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

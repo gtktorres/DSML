@@ -22,7 +22,7 @@ namespace chatGPT.Controllers
         [Route("CompleteSentence")]
         public async Task<IActionResult> CompleteSentence(string query)
         {
-            var result = await _openAIService.CompleteSentence(query);//await _openAIService.CompleteSentence(query);
+            var result = await _openAIService.CompleteSentence(query);
             return Ok(result);
         }
     }

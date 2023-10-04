@@ -1,5 +1,6 @@
-﻿using Rystem.OpenAi;
-using Rystem.OpenAi.Chat;
+﻿using Rystem.OpenAi.Chat;
+using Rystem.OpenAi;
+using chatGPT.Configurations;
 
 namespace chatGPT.Services
 {
@@ -8,11 +9,11 @@ namespace chatGPT.Services
         private readonly IOpenAiFactory _openAiFactory;
         public OpenAIService(
             IOpenAiFactory openAiFactory
-        )
+            )
         {
             _openAiFactory = openAiFactory;
         }
-    
+
         public async Task<string> CompleteSentence(string query)
         {
             //api instance
@@ -29,7 +30,8 @@ namespace chatGPT.Services
 
                 return result.Choices[0].Message.Content;
             }
-            catch (HttpRequestException ex) {
+            catch (HttpRequestException ex)
+            {
                 var tree = ex;
                 return ex.Message;
             }

@@ -1,38 +1,25 @@
-﻿using Rystem.OpenAi;
-using Rystem.OpenAi.Chat;
+﻿using chatGPT.Configurations;
+using Microsoft.Extensions.Options;
+using OpenAI_API.Embedding;
 
 namespace chatGPT.Services
 {
     public class OpenAIService : IOpenAIService
     {
-        private readonly IOpenAiFactory _openAiFactory;
+        private readonly OpenAIConfig _openAIConfig;
         public OpenAIService(
-            IOpenAiFactory openAiFactory
+            IOptionsMonitor<OpenAIConfig> optionsMonitor
         )
         {
-            _openAiFactory = openAiFactory;
+            _openAIConfig = optionsMonitor.CurrentValue;
         }
     
         public async Task<string> CompleteSentence(string query)
         {
             //api instance
-            var openAiApi = _openAiFactory.CreateChat(null);
-
-            try
-            {
-                var result = await openAiApi
-                    .Request(new ChatMessage { Role = ChatRole.User, Content = $"{query}" })
-                    .WithModel(ChatModelType.Gpt35Turbo)
-                    .WithTemperature(1)
-                    .ExecuteAsync();
-
-
-                return result.Choices[0].Message.Content;
-            }
-            catch (HttpRequestException ex) {
-                var tree = ex;
-                return ex.Message;
-            }
+            var api = new OpenAI_API.OpenAIAPI(_openAIConfig.Key);
+            var result = await api.Completions.GetCompletion(query);
+            return result;
         }
     }
 }

@@ -1,5 +1,6 @@
 using chatGPT.Services;
 using Microsoft.AspNetCore.Mvc;
+using OpenAI_API.Completions;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace chatGPT.Controllers

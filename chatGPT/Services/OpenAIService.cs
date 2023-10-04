@@ -1,37 +1,39 @@
-﻿using chatGPT.Configurations;
-using Microsoft.Extensions.Options;
-using OpenAI_API.Embedding;
+﻿using Rystem.OpenAi;
+using Rystem.OpenAi.Chat;
 
 namespace chatGPT.Services
 {
     public class OpenAIService : IOpenAIService
     {
-        private readonly OpenAIConfig _openAIConfig;
+        private readonly IOpenAiFactory _openAiFactory;
         public OpenAIService(
-            IOptionsMonitor<OpenAIConfig> optionsMonitor
+            IOpenAiFactory openAiFactory
         )
         {
-            _openAIConfig = optionsMonitor.CurrentValue;
+            _openAiFactory = openAiFactory;
         }
     
-        public async Task<string> CompleteSentence(string text)
+        public async Task<string> CompleteSentence(string query)
         {
             //api instance
-            var api = new OpenAI_API.OpenAIAPI(_openAIConfig.Key);
-            var result = await api.Completions.GetCompletion(text);
-            return result;
-        }
+            var openAiApi = _openAiFactory.CreateChat(null);
 
-        public async Task<EmbeddingResult> Embeddings(string text)
-        {
-            //api instance
-            var embeddingRequest = new EmbeddingRequest();
-            embeddingRequest.Input = text;
-            embeddingRequest.Model = OpenAI_API.Models.Model.AdaTextEmbedding;
+            try
+            {
+                var result = await openAiApi
+                    .Request(new ChatMessage { Role = ChatRole.User, Content = $"{query}" })
+                    .WithModel(ChatModelType.Gpt35Turbo)
+                    .WithTemperature(1)
+                    .ExecuteAsync();
 
-            var api = new OpenAI_API.OpenAIAPI( _openAIConfig.Key);
-            var result = await api.Embeddings.CreateEmbeddingAsync(text);
-            return result;
+
+                return result.Choices[0].Message.Content;
+            }
+            catch (HttpRequestException ex)
+            {
+                var tree = ex;
+                return ex.Message;
+            }
         }
     }
 }

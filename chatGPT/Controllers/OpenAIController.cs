@@ -19,17 +19,9 @@ namespace chatGPT.Controllers
 
         [HttpGet()]
         [Route("CompleteSentence")]
-        public async Task<IActionResult> CompleteSentence(string text)
+        public async Task<IActionResult> CompleteSentence(string query)
         {
-            var result = await _openAIService.CompleteSentence(text);
-            return Ok(result);
-        }
-
-        [HttpPost()]
-        [Route("Embeddings")]
-        public async Task<IActionResult> Embeddings(string text)
-        {
-            var result = await _openAIService.Embeddings(text);
+            var result = await _openAIService.CompleteSentence(query);
             return Ok(result);
         }
     }

@@ -1,6 +1,4 @@
-﻿using OpenAI_API.Embedding;
-
-namespace chatGPT.Services
+﻿namespace chatGPT.Services
 {
     public interface IOpenAIService
     {

@@ -31,7 +31,6 @@ namespace chatGPT.Services
             }
             catch (HttpRequestException ex)
             {
-                var tree = ex;
                 return ex.Message;
             }
         }

@@ -44,13 +44,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNet.WebPages": {
+              "target": "Package",
+              "version": "[3.2.9, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.11, )"
             },
-            "OpenAI": {
+            "Rystem.OpenAi": {
               "target": "Package",
-              "version": "[1.7.2, )"
+              "version": "[3.3.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

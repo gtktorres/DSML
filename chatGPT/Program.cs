@@ -1,10 +1,15 @@
 using chatGPT.Configurations;
 using chatGPT.Services;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<OpenAIConfig>(builder.Configuration.GetSection("OpenAI"));
+builder.Services.AddOpenAi(settings =>
+{
+    settings.ApiKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Rystem.OpenAi")["Key"];
+});
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

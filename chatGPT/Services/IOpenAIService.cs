@@ -1,9 +1,9 @@
-﻿using OpenAI_API.Embedding;
+﻿using Rystem.OpenAi.Chat;
 
 namespace chatGPT.Services
 {
     public interface IOpenAIService
     {
-        Task<string> CompleteSentence(string text);
+        Task<string> CompleteSentence(string query);
     }
 }

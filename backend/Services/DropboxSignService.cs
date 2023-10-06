@@ -345,6 +345,23 @@ public class DropboxSignService : IDropboxSignService
 
         return response;
     }
+    public async Task<SignatureRequestListResponse> GetAllSignatures(string account_id)
+    {
+        var response = new SignatureRequestListResponse();
+
+        try
+        {
+            response = await Task.Run(() => signatureRequestApi.SignatureRequestList(account_id));
+        }
+        catch (ApiException e)
+        {
+            Console.WriteLine("Exception when calling Dropbox Sign API: " + e.Message);
+            Console.WriteLine("Status Code: " + e.ErrorCode);
+            Console.WriteLine(e.StackTrace);
+        }
+
+        return response;
+    }
 
     public async Task<bool> DownloadFiles(string signatureRequestId, downloadType type)
     {

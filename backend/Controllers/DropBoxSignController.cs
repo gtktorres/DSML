@@ -119,6 +119,13 @@ namespace backend.Controllers
         {
             return await new DBS(_optionsMonitor).EmbeddedSignUrl(signature_id);
         }
+
+        //get a list of signature urls
+        [HttpGet("GetAllSignatures")]
+        public async Task<SignatureRequestListResponse> GetAllSignatures(string account_id)
+        {
+            return await new DBS(_optionsMonitor).GetAllSignatures(account_id);
+        }
         //download files, as fileurl, as datauri
         [HttpPost("DownloadFiles")]
         public async Task<bool> DownloadFiles(string signatureRequestId, downloadType type)

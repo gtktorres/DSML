@@ -72,7 +72,7 @@ function Main() {
                         onAfterOpen={afterOpenModal}
                         onRequestClose={closeModal}
                         style={customStyles}
-                        contentLabel="Example Modal"
+                        contentLabel="Request Account ID Modal"
                         >
                             <button class="button round-6" onClick={closeModal}>x</button>
                             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Account ID Please</h2>
@@ -93,7 +93,7 @@ function Main() {
                         onAfterOpen={afterOpenModal}
                         onRequestClose={closeListModal}
                         style={customStyles}
-                        contentLabel="Example Modal"
+                        contentLabel="Signature List Modal"
                         >
                             <button class="button round-6" onClick={closeListModal}>x</button>
                             <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Sign</button>

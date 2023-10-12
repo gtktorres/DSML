@@ -18,7 +18,9 @@ function Main() {
     let subtitle;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [listModalIsOpen, setListModalIsOpen] = useState(false);
+    const [sigReqModalIsOpen, setSigReqModalIsOpen] = useState(false);
     const [list, setList] = useState([]);
+    const [activeID, setActiveID] = useState("");
     const [accountID, setAccountID] = useState("");
 
     function openModal() {
@@ -41,7 +43,15 @@ function Main() {
     function closeListModal() {
         setListModalIsOpen(false);
     }
+    
+    function openSigReqModal(){
+        setListModalIsOpen(true);
+    }
 
+    function closeSigReqModal() {
+        setListModalIsOpen(false);
+    }
+    
     function GetSignatureList(){
         closeModal();
         useEffect(() => {
@@ -58,6 +68,22 @@ function Main() {
 
         openListModal();
     }
+    
+    function GetSignatureRequest(){
+      closeListModal();
+      useEffect(() => {
+            fetch(`http://localhost:5079/api/DropboxSign/GetEmbeddedSignature?signature_request_id=${activeID}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                })
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    }
+    
+    openSigReqModal();
 
     return(
         <div class="vh-100 px-4 py-5 my-5 text-center">
@@ -95,10 +121,17 @@ function Main() {
                         style={customStyles}
                         contentLabel="Signature List Modal"
                         >
-                            <button class="button round-6" onClick={closeListModal}>x</button>
-                            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Sign</button>
-                            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Add User</button>
-                            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Remove User</button>
+                          <div>
+                           {list.map((requests) => (
+                             <div
+                               onClick={() => {
+                               setActiveID(requests.signature_request_id);
+                               }}
+                               key={requests.title}
+                             >
+                             </div>
+                            ))}
+                          </div>
                         </Modal>
                     </div>
                 </div>

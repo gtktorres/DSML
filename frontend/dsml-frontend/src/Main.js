@@ -81,9 +81,10 @@ function Main() {
         .catch((err) => {
             console.log(err.message);
         });
-    }
+      }
     
-    openSigReqModal();
+      openSigReqModal();
+    }
 
     return(
         <div class="vh-100 px-4 py-5 my-5 text-center">

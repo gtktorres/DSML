@@ -16,6 +16,8 @@ const customStyles = {
 function Main() {
 
     let subtitle;
+    const [query, setQuery] = useState("");
+    const [description, setDescription] = useState("");
     const [modalIsOpen, setIsOpen] = useState(false);
     const [listModalIsOpen, setListModalIsOpen] = useState(false);
     const [sigReqModalIsOpen, setSigReqModalIsOpen] = useState(false);
@@ -78,6 +80,7 @@ function Main() {
                 .then((data) => {
                     console.log(data);
                     setSignatureRequest(data);
+                    
                 })
         })
         .catch((err) => {
@@ -86,7 +89,7 @@ function Main() {
       }
       
       useEffect(() => {
-            fetch(`http://localhost:5079/api/DropboxSign/GetEmbeddedSignature?signature_request_id=${activeID}`)
+            fetch(`http://localhost:5079/CompleteSentence?query=${query}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);

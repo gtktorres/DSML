@@ -22,6 +22,7 @@ function Main() {
     const [list, setList] = useState([]);
     const [activeID, setActiveID] = useState("");
     const [accountID, setAccountID] = useState("");
+    const [signatureRequest, setSignatureRequest] = useState([]);
 
     function openModal() {
         setIsOpen(true);
@@ -45,11 +46,11 @@ function Main() {
     }
     
     function openSigReqModal(){
-        setListModalIsOpen(true);
+        setSigReqModalIsOpen(true);
     }
 
     function closeSigReqModal() {
-        setListModalIsOpen(false);
+        setSigReqModalIsOpen(false);
     }
     
     function GetSignatureList(){
@@ -76,13 +77,26 @@ function Main() {
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
+                    setSignatureRequest(data);
                 })
         })
         .catch((err) => {
             console.log(err.message);
         });
       }
-    
+      
+      useEffect(() => {
+            fetch(`http://localhost:5079/api/DropboxSign/GetEmbeddedSignature?signature_request_id=${activeID}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    setSignatureRequest(data);
+                })
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+      }
       openSigReqModal();
     }
 
@@ -127,11 +141,25 @@ function Main() {
                              <div
                                onClick={() => {
                                setActiveID(requests.signature_request_id);
+                               getSignatureRequest();
                                }}
                                key={requests.title}
                              >
                              </div>
                             ))}
+                          </div>
+                        </Modal>
+                    </div>
+                    <div>
+                        <Modal
+                        isOpen={sigReqModalIsOpen}
+                        onAfterOpen={afterOpenModal}
+                        onRequestClose={closeSigReqModal}
+                        style={customStyles}
+                        contentLabel="Signature Request Modal"
+                        >
+                          <div>
+                            
                           </div>
                         </Modal>
                     </div>

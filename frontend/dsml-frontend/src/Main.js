@@ -56,9 +56,10 @@ function Main() {
     }
     
     function GetSignatureList(){
+        var account = accountID;
         closeModal();
         useEffect(() => {
-            fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${accountID}`)
+                fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${account}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
@@ -86,7 +87,7 @@ function Main() {
         .catch((err) => {
             console.log(err.message);
         });
-      }
+      
       
       useEffect(() => {
             fetch(`http://localhost:5079/CompleteSentence?query=${query}`)
@@ -99,7 +100,7 @@ function Main() {
         .catch((err) => {
             console.log(err.message);
         });
-      }
+      
       openSigReqModal();
     }
 
@@ -107,7 +108,6 @@ function Main() {
         <div class="vh-100 px-4 py-5 my-5 text-center">
             <h1 class="display-5 fw-bold text-body-emphasis">DSML</h1>
             <div class="col-lg-6 mx-auto">
-                <p class="lead mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices venenatis feugiat. Nam auctor felis id urna varius auctor. Curabitur commodo ultrices feugiat. Vestibulum non ultrices tellus, id pretium risus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque congue ullamcorper libero non malesuada.</p>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <div>    
                         <button onClick={openModal}class="btn btn-primary btn-lg px-4 gap-3">+</button>
@@ -124,7 +124,8 @@ function Main() {
                             <form>
                                 <input 
                                     value={accountID}
-                                    onChange={a => setAccountID(a.target.value)}/>
+                                    onChange={a => setAccountID(a.target.value)}
+                                />
                                 <div>
                                     <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={GetSignatureList}>Send</button>
                                 </div>
@@ -144,7 +145,7 @@ function Main() {
                              <div
                                onClick={() => {
                                setActiveID(requests.signature_request_id);
-                               getSignatureRequest();
+                               GetSignatureRequest();
                                }}
                                key={requests.title}
                              >

@@ -1,3 +1,11 @@
+/*The modals allow for there to be a sequence of
+opening and then closing modals.
+Starting with getting the account id from the user,
+then populating a list of buttons that display
+a title for each signature request,
+then an iFrame of the legal agreement to be signed 
+and an ai procured description 
+*/
 import './Main.css';
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';

@@ -3,38 +3,42 @@ using backend.Services;
 using Dropbox.Sign.Api;
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System.IO;
-using System.Reflection.Metadata;
-using static Dropbox.Api.Sharing.ListFileMembersIndividualResult;
 
 public class DropboxSignService : IDropboxSignService
 {
-    private static readonly DropboxSignConfig config;
-    private static Configuration _config = new Configuration {Username = config.Key};
+    private static Configuration? _config;
+
+    private AccountApi accountApi;
+
+    private SignatureRequestApi signatureRequestApi;
+
+    private EmbeddedApi embeddedApi;
+
+    private TemplateApi templateApi;
+
+    private OAuthApi oauthApi;
+    private ApiAppApi apiAppApi;
+
+    public enum downloadType { files, datauri, fileurl }
 
     public DropboxSignService(
 
-            IOptionsMonitor<Configuration> optionsMonitor
-        )
+            IOptionsMonitor<Configuration> optionsMonitor,
+            DropboxSignConfig config
+
+    )
     {
         _config = optionsMonitor.CurrentValue;
+        _config.Username = config.Key;
+
+        this.accountApi = new AccountApi(_config);
+        this.signatureRequestApi = new SignatureRequestApi(_config);
+        this.embeddedApi = new EmbeddedApi(_config);
+        this.templateApi = new TemplateApi(_config);
+        this.oauthApi = new OAuthApi(_config);
+        this.apiAppApi = new ApiAppApi(_config);
     }
-
-    private protected AccountApi accountApi = new AccountApi(_config);
-
-    private protected SignatureRequestApi signatureRequestApi = new SignatureRequestApi(_config);
-
-    private protected EmbeddedApi embeddedApi = new EmbeddedApi(_config);
-
-    private protected TemplateApi templateApi = new TemplateApi(_config);
-
-    private protected OAuthApi oauthApi = new OAuthApi(_config);
-    private protected ApiAppApi apiAppApi = new ApiAppApi(_config);
-
-    public enum downloadType { files, datauri, fileurl }
 
     //Authentication
     public async Task<OAuthTokenResponse> OauthTokenGenerate(OAuthTokenGenerateRequest body)
@@ -44,7 +48,7 @@ public class DropboxSignService : IDropboxSignService
         try
         {
 
-            response = await Task.Run(() => oauthApi.OauthTokenGenerate(body));
+            response = await Task.Run(() => this.oauthApi.OauthTokenGenerate(body));
 
         }
         catch (ApiException e)

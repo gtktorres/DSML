@@ -63,11 +63,17 @@ function Main() {
         setSigReqModalIsOpen(false);
     }
     
+    function provideAccountID(string){
+        setAccountID(string);
+    }
+
+    function getAccountID(string){
+        return accountID;
+    }
     function GetSignatureList(){
-        var account = accountID;
         closeModal();
         useEffect(() => {
-                fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${account}`)
+                fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${getAccountID}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
@@ -80,7 +86,7 @@ function Main() {
 
         openListModal();
     }
-    
+/*   
     function GetSignatureRequest(){
       closeListModal();
       useEffect(() => {
@@ -111,7 +117,7 @@ function Main() {
       
       openSigReqModal();
     }
-
+*/
     return(
         <div class="vh-100 px-4 py-5 my-5 text-center">
             <h1 class="display-5 fw-bold text-body-emphasis">DSML</h1>
@@ -132,7 +138,7 @@ function Main() {
                             <form>
                                 <input 
                                     value={accountID}
-                                    onChange={a => setAccountID(a.target.value)}
+                                    onChange={a => provideAccountID(a.target.value)}
                                 />
                                 <div>
                                     <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={GetSignatureList}>Send</button>
@@ -153,7 +159,7 @@ function Main() {
                              <div
                                onClick={() => {
                                setActiveID(requests.signature_request_id);
-                               GetSignatureRequest();
+                               //GetSignatureRequest();
                                }}
                                key={requests.title}
                              >

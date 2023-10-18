@@ -2,6 +2,7 @@
 {
     public class DropboxSignConfig
     {
-        public string Key { get; set; } = "";
+        //Change this value to an appropriate api key in order to authorize api calls
+        public string Key { get; set; } = "APIKEY";
     }
 }

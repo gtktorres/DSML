@@ -33,6 +33,7 @@ function Main() {
     const [activeID, setActiveID] = useState("");
     const [accountID, setAccountID] = useState("");
     const [signatureRequest, setSignatureRequest] = useState([]);
+    const [agreementDescription, setAgreementDescription] =useState("");
 
     function openModal() {
         setIsOpen(true);
@@ -67,13 +68,14 @@ function Main() {
         setAccountID(string);
     }
 
-    function getAccountID(string){
+    function getAccountID(){
         return accountID;
     }
     function GetSignatureList(){
+        const account = getAccountID();
         closeModal();
         useEffect(() => {
-                fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${getAccountID}`)
+                fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${account}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
@@ -86,7 +88,7 @@ function Main() {
 
         openListModal();
     }
-/*   
+      
     function GetSignatureRequest(){
       closeListModal();
       useEffect(() => {
@@ -108,7 +110,7 @@ function Main() {
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
-                    setSignatureRequest(data);
+                    setAgreementDescription(data);
                 })
         })
         .catch((err) => {
@@ -117,7 +119,10 @@ function Main() {
       
       openSigReqModal();
     }
-*/
+    function SignAgreement(){}
+    function AddUserToAgreement(){}
+    function RemoveUserFromAgreement(){}
+      
     return(
         <div class="vh-100 px-4 py-5 my-5 text-center">
             <h1 class="display-5 fw-bold text-body-emphasis">DSML</h1>
@@ -159,7 +164,7 @@ function Main() {
                              <div
                                onClick={() => {
                                setActiveID(requests.signature_request_id);
-                               //GetSignatureRequest();
+                               GetSignatureRequest();
                                }}
                                key={requests.title}
                              >
@@ -177,7 +182,14 @@ function Main() {
                         contentLabel="Signature Request Modal"
                         >
                           <div>
-                            
+                            <div> 
+                              <h3>{agreementDescription}</h3>
+                            </div>
+                            <div>
+                              <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SignAgreement}>Sign</button>
+<button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddUserToAgreement}>Add</button>
+<button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={RemoveUserFromAgreement}>Remove</button>
+                            </div>
                           </div>
                         </Modal>
                     </div>

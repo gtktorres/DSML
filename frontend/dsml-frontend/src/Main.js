@@ -68,24 +68,17 @@ function Main() {
         setAccountID(string);
     }
 
-    function getAccountID(){
-        return accountID;
-    }
     function GetSignatureList(){
-        const account = getAccountID();
-        closeModal();
-        useEffect(() => {
-                fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${account}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    setList(data);
-                })
+        fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${accountID}`)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            setList(data);
         })
         .catch((err) => {
             console.log(err.message);
         });
-
+        closeModal();
         openListModal();
     }
       
@@ -159,18 +152,19 @@ function Main() {
                         style={customStyles}
                         contentLabel="Signature List Modal"
                         >
-                          <div>
-                           {list.map((requests) => (
-                             <div
-                               onClick={() => {
-                               setActiveID(requests.signature_request_id);
-                               GetSignatureRequest();
-                               }}
-                               key={requests.title}
-                             >
-                             </div>
-                            ))}
-                          </div>
+                            <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Signature Requests:</h2>
+                            <div>
+                            {list.map((requests) => (
+                                <div
+                                onClick={() => {
+                                setActiveID(requests.signature_request_id);
+                                GetSignatureRequest();
+                                }}
+                                key={requests.title}
+                                >
+                                </div>
+                                ))}
+                            </div>
                         </Modal>
                     </div>
                     <div>

@@ -69,6 +69,7 @@ function Main() {
     }
 
     function GetSignatureList(){
+        //the use of useEffect here caused a breaking of hook rules and thus should not be used for APIs
         fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${accountID}`)
         .then((response) => response.json())
         .then((data) => {

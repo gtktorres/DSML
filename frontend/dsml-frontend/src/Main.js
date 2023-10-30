@@ -68,9 +68,36 @@ function Main() {
         setAccountID(string);
     }
 
+    function PopulateList(){
+
+        let popList = Array.from(list);
+        let population = popList.map((requests) => (
+            <div
+            onClick={() => {
+            setActiveID(requests.signature_request_id);
+            GetSignatureRequest();
+            }}
+            key={requests.title}
+            >
+                {requests.title}
+            </div>
+        ));
+
+        return population;
+    }
     function GetSignatureList(){
+        //this is needed to relax same-origin policy
+        const myHeaders = new Headers();
+
+        const myInit = {
+            method: "GET",
+            headers: myHeaders,
+            mode: "cors",
+            cache: "default",
+        };
+
         //the use of useEffect here caused a breaking of hook rules and thus should not be used for APIs
-        fetch(`http://localhost:5079/api/DropboxSign/GetAllEmbeddedSignatures?account_id=${accountID}`)
+        fetch(`http://localhost:5079/api/DropboxSign/GetAllSignatures?account_id=${accountID}`, myInit)
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
@@ -155,16 +182,7 @@ function Main() {
                         >
                             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Signature Requests:</h2>
                             <div>
-                            {list.map((requests) => (
-                                <div
-                                onClick={() => {
-                                setActiveID(requests.signature_request_id);
-                                GetSignatureRequest();
-                                }}
-                                key={requests.title}
-                                >
-                                </div>
-                                ))}
+                            <PopulateList />
                             </div>
                         </Modal>
                     </div>

@@ -101,7 +101,8 @@ function Main() {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            setList(data);
+            setList(data.signature_requests);
+            console.log(list);
         })
         .catch((err) => {
             console.log(err.message);
@@ -182,7 +183,7 @@ function Main() {
                         >
                             <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Signature Requests:</h2>
                             <div>
-                            <PopulateList />
+                                <PopulateList />
                             </div>
                         </Modal>
                     </div>

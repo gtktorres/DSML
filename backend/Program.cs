@@ -5,6 +5,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<DropboxSignConfig>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "AllowOrigin",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:5079", "http://localhost:3000")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 //TODO: Implement DI apikey through appsettings
 //builder.Services.Configure<DropboxSignConfig>(builder.Configuration.GetSection("DropboxSignConfig"));
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -23,6 +33,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 

@@ -12,7 +12,7 @@ namespace backend.Services
         Task<AccountCreateResponse> AccountCreate(AccountCreateRequest body);
         Task<AccountVerifyResponse> AccountVerify(string email);
         Task<AccountGetResponse> AccountUpdate(AccountUpdateRequest body);
-        Task<AccountGetResponse> AccountGet(string email);
+        Task<AccountGetResponse> AccountGet(string? accountID, string? email);
         Task<string> ApiAppDelete(string clientId);
         Task<TemplateCreateEmbeddedDraftResponse> TemplateCreateEmbeddedDraft(TemplateCreateEmbeddedDraftRequest body);
         Task<TemplateUpdateFilesResponse> TemplateUpdateFiles(string template_id, TemplateUpdateFilesRequest request);

@@ -2,12 +2,14 @@
 using Dropbox.Sign.Client;
 using Dropbox.Sign.Model;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace backend.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("AllowOrigin")]
     public class DropboxSignController : ControllerBase
     {
         private readonly ILogger<DropboxSignController> _logger;
@@ -51,9 +53,9 @@ namespace backend.Controllers
         }
 
         [HttpGet("GetAccount")]
-        public async Task<AccountGetResponse> AccountGet(string email)
+        public async Task<AccountGetResponse> AccountGet(string? accountID, string? email)
         {
-            return await _dropboxSignService.AccountGet(email);
+            return await _dropboxSignService.AccountGet(accountID, email);
         }
 
         [HttpPut("UpdateAccount")]

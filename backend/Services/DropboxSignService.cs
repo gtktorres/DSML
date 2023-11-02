@@ -143,13 +143,13 @@ public class DropboxSignService : IDropboxSignService
         return response;
     }
 
-    public async Task<AccountGetResponse> AccountGet(string email)
+    public async Task<AccountGetResponse> AccountGet(string? accountID, string? email)
     {
         var account = new AccountGetResponse();
 
         try
         {
-            account = await Task.Run(() => accountApi.AccountGet(null, email));
+            account = await Task.Run(() => accountApi.AccountGet(accountID, email));
         }
         catch (ApiException e)
         {

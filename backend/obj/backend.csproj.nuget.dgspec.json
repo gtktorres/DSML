@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hg\\DSML-1\\backend\\backend.csproj": {}
+    "C:\\Users\\gtkto\\Source\\Repos\\DSML\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hg\\DSML-1\\backend\\backend.csproj": {
+    "C:\\Users\\gtkto\\Source\\Repos\\DSML\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hg\\DSML-1\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\gtkto\\Source\\Repos\\DSML\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\Hg\\DSML-1\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\Hg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hg\\DSML-1\\backend\\obj\\",
+        "projectPath": "C:\\Users\\gtkto\\Source\\Repos\\DSML\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\gtkto\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gtkto\\source\\repos\\DSML\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Hg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\gtkto\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -50,15 +51,15 @@
             },
             "Dropbox.Sign": {
               "target": "Package",
-              "version": "[1.1.1, )"
+              "version": "[1.2.0, )"
             },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.13, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[7.0.10, )"
+              "version": "[7.0.13, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -84,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

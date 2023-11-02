@@ -4,12 +4,6 @@ import Hellosign from 'hellosign-embedded';
 
 export default function Home() {
 
-  const client = new Hellosign();
-
-  client.open(claimUrl, {
-    clientId: "xxxx",
-    skipDomainVerification: true
-  });
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">

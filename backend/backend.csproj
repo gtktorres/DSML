@@ -8,8 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="Dropbox.Api" Version="6.37.0" />
-    <PackageReference Include="Dropbox.Sign" Version="1.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
+    <PackageReference Include="Dropbox.Sign" Version="1.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

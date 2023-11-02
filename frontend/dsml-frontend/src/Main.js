@@ -35,6 +35,17 @@ function Main() {
     const [signatureRequest, setSignatureRequest] = useState([]);
     const [agreementDescription, setAgreementDescription] =useState("");
 
+    
+    //this is needed to relax same-origin policy
+    const myHeaders = new Headers();
+    
+    const myInit = {
+        method: "GET",
+        headers: myHeaders,
+        mode: "cors",
+        cache: "default",
+    };
+
     function openModal() {
         setIsOpen(true);
     }
@@ -68,39 +79,49 @@ function Main() {
         setAccountID(string);
     }
 
-    function PopulateList(){
+    function GetSignatureID(requestSignatures){
+        var email = "";
 
+        fetch(`http://localhost:5079/api/DropboxSign/GetAccount?accountId=${accountID}`, myInit)
+        .then((response) => response.json())
+        .then((data) => {
+            email = data.account.email_address;
+
+            console.log(email);
+    
+            requestSignatures.forEach(signature => {
+                if(email === signature.signer_email_address) {
+                    GetSignatureRequest(signature.signature_id);
+                }        
+            });
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    }
+
+    function PopulateList(){
         let popList = Array.from(list);
-        let population = popList.map((requests) => (
-            <div
-            onClick={() => {
-            setActiveID(requests.signature_request_id);
-            GetSignatureRequest();
+        let population = popList.map((request) => (
+            <div>
+            <button onClick={async () => {           
+                await GetSignatureID(request.signatures);
             }}
-            key={requests.title}
+            key={request.signature_request_id}
             >
-                {requests.title}
+                {request.title}
+            </button>
             </div>
         ));
 
         return population;
     }
+
     function GetSignatureList(){
-        //this is needed to relax same-origin policy
-        const myHeaders = new Headers();
-
-        const myInit = {
-            method: "GET",
-            headers: myHeaders,
-            mode: "cors",
-            cache: "default",
-        };
-
         //the use of useEffect here caused a breaking of hook rules and thus should not be used for APIs
         fetch(`http://localhost:5079/api/DropboxSign/GetAllSignatures?account_id=${accountID}`, myInit)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
             setList(data.signature_requests);
             console.log(list);
         })
@@ -111,36 +132,32 @@ function Main() {
         openListModal();
     }
       
-    function GetSignatureRequest(){
+    function GetSignatureRequest(signature_id){
       closeListModal();
-      useEffect(() => {
-            fetch(`http://localhost:5079/api/DropboxSign/GetEmbeddedSignature?signature_request_id=${activeID}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    setSignatureRequest(data);
-                    
-                })
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
+      fetch(`http://localhost:5079/api/DropboxSign/GetEmbeddedSignature?signature_id=${signature_id}`, myInit)
+      .then((response) => response.json())
+      .then((data) => {
+            console.log(data);
+            setSignatureRequest(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
       
       
-      useEffect(() => {
-            fetch(`http://localhost:5079/CompleteSentence?query=${query}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    setAgreementDescription(data);
-                })
-        })
-        .catch((err) => {
+      fetch(`http://localhost:5079/CompleteSentence?query=${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+            console.log(data);
+            setAgreementDescription(data);
+       })
+       .catch((err) => {
             console.log(err.message);
-        });
+       });
       
       openSigReqModal();
     }
+
     function SignAgreement(){}
     function AddUserToAgreement(){}
     function RemoveUserFromAgreement(){}

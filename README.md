@@ -1,10 +1,10 @@
 # DSML
 
-Digital Signature Machine Learning or Forgery Prediction via Artifial Intelligence
+Digital Signature Menu Lookup
 
 ## Description
 
-An innovative software prototype that will improve life for anyone that needs to sign a document online.
+An innovative software prototype that will improve life for anyone that needs to sign a document online. Originally planned to implement OpenAI, but their practices lack privacy standards.
 
 ## Getting Started
 

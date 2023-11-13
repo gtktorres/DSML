@@ -34,6 +34,9 @@ function Main() {
     const [accountID, setAccountID] = useState("");
     const [signatureRequest, setSignatureRequest] = useState([]);
     const [agreementDescription, setAgreementDescription] =useState("");
+    const [addUserModalIsOpen, setAddUserModalIsOpen] = useState(false);
+    const [email, setEmail] = useState("");
+    const [emailList, setEmailList] = useState([]);
 
     
     //this is needed to relax same-origin policy
@@ -74,9 +77,22 @@ function Main() {
     function closeSigReqModal() {
         setSigReqModalIsOpen(false);
     }
-    
+
+    function openAddUserModal(){
+        setAddUserModalIsOpen(true);
+    }
+
+    function closeAddUserModal() {
+        setAddUserModalIsOpen(false);
+    }
+
     function provideAccountID(string){
         setAccountID(string);
+    }
+
+    function provideEmail(string){
+        setEmail(string);
+        setEmailList([...emailList, email]);
     }
 
     function GetSignatureID(requestSignatures){
@@ -100,6 +116,17 @@ function Main() {
         });
     }
 
+    function PopulateRequest(){
+
+        let population = () => (
+            <div>
+                <iframe src={signatureRequest.signing_url}></iframe>
+            </div>
+        );
+
+        return population;
+    }
+    
     function PopulateList(){
         let popList = Array.from(list);
         let population = popList.map((request) => (
@@ -145,22 +172,78 @@ function Main() {
       });
       
       
-      fetch(`http://localhost:5079/CompleteSentence?query=${query}`)
-      .then((response) => response.json())
-      .then((data) => {
-            console.log(data);
-            setAgreementDescription(data);
-       })
-       .catch((err) => {
-            console.log(err.message);
-       });
+    //   fetch(`http://localhost:5079/CompleteSentence?query=${query}`)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //         console.log(data);
+    //         setAgreementDescription(data);
+    //    })
+    //    .catch((err) => {
+    //         console.log(err.message);
+    //    });
       
       openSigReqModal();
     }
 
-    function SignAgreement(){}
-    function AddUserToAgreement(){}
-    function RemoveUserFromAgreement(){}
+    function SendSignatureRequest(requestSignatures){
+        fetch(`http://localhost:5079/api/DropboxSign/?accountId=${accountID}`, myInit)
+        .then((response) => response.json())
+        .then((data) => {
+            email = data.account.email_address;
+
+            console.log(email);
+    
+            requestSignatures.forEach(signature => {
+                if(email === signature.signer_email_address) {
+                    GetSignatureRequest(signature.signature_id);
+                }        
+            });
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    }
+    function EmailList() {
+        let emails = new Array(emailList);
+        let population = emails.map(() => (
+            <div>
+                <input
+                    value={email}
+                    onChange={a => provideEmail(a.target.value)}
+                ></input>
+            </div>
+        ))
+        
+        setEmailList([population]);
+    } EmailList();
+
+    function AddInput(){
+        setEmailList([...emailList, ""]);
+    }
+    
+    function AddUserToAgreement(){
+        /**TODO:
+         * When a user requests to add a signer, it creates a new
+         * request that includes additional signors.
+         * We'll need to receive the signors the user wishes to answer.
+         * This can be done by making a new modal that has a text field,
+         * a button to add more signors, and a button to send a new signature request 
+         * with a revised list of signors
+         * In order to add new signors to the modal we need a way to listen for new requests for 
+         * more signors to add
+         * 
+        **/
+        closeSigReqModal();
+        openAddUserModal();
+        
+
+    }
+    function RemoveUserFromAgreement(){
+        /**TODO:
+         * When a user requests to remove a signer, it would creates a
+         * new request that includes the remaining signors. 
+         */
+    }
       
     return(
         <div class="vh-100 px-4 py-5 my-5 text-center">
@@ -213,13 +296,29 @@ function Main() {
                         contentLabel="Signature Request Modal"
                         >
                           <div>
-                            <div> 
-                              <h3>{agreementDescription}</h3>
-                            </div>
                             <div>
-                              <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SignAgreement}>Sign</button>
-<button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddUserToAgreement}>Add</button>
-<button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={RemoveUserFromAgreement}>Remove</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={PopulateRequest}>Sign</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddUserToAgreement}>Add</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={RemoveUserFromAgreement}>Remove</button>
+                            </div>
+                          </div>
+                        </Modal>
+                    </div>
+                    <div>
+                        <Modal
+                        isOpen={addUserModalIsOpen}
+                        onAfterOpen={afterOpenModal}
+                        onRequestClose={closeAddUserModal}
+                        style={customStyles}
+                        contentLabel="Add User Modal"
+                        >
+                          <div>
+                            <div>
+                                <emailList />
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddInput}>➕</button></div>
+                            <div>                               
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SendSignatureRequest}>✔️</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={closeAddUserModal}>❌</button>
                             </div>
                           </div>
                         </Modal>

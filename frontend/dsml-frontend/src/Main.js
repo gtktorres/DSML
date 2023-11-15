@@ -222,7 +222,7 @@ function Main() {
       need to determine a way to update the signature request or
       create a new one to send in it's place
     */
-    function SendSignatureRequest(){
+    function AddRequest(){
 
         emailList.forEach(e => setSignerList([...signerList, (e.name, e.email, signerList.length)]));
         
@@ -248,6 +248,38 @@ function Main() {
         });
 
         closeAddUserModal();
+        openSigReqModal();
+    }
+
+    function RemoveRequest(){
+        
+        emailList.forEach(e => {
+            if(signerList.filter(e) !== null) setSignorList(signerList.filter(!e));
+        })
+
+        var signatureRequestCreateEmbeddedRequest = {
+            client_id: `${process.env.CLIENT_ID}`,
+            title: signatureRequest.title,
+            subject: signatureRequest.subject,
+            message: signatureRequest.message,
+            signers: signerList,
+            file_urls: signatureRequest.file_urls,
+            signing_options: signatureRequest.signing_options,
+            test_mode: signatureRequest.test_mode
+        }
+
+        fetch(`http://localhost:5079/api/DropboxSign/?CreateEmbeddedSignature=${signatureRequestCreateEmbeddedRequest}`, myInit)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+
+        closeRemoveUserModal();
+        openSigReqModal();
     }
     
     function EmailList() {
@@ -372,7 +404,7 @@ function Main() {
                                 <EmailList />
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddInput}>➕</button></div>
                             <div>                               
-                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SendSignatureRequest}>✔️</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddRequest}>✔️</button>
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={closeAddUserModal}>❌</button>
                             </div>
                           </div>
@@ -391,7 +423,7 @@ function Main() {
                                 <EmailList />
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddInput}>➕</button></div>
                             <div>                               
-                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SendSignatureRequest}>✔️</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={RemoveRequest}>✔️</button>
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={closeRemoveUserModal}>❌</button>
                             </div>
                           </div>

@@ -203,7 +203,7 @@ function Main() {
             console.log(err.message);
         });
     }
-    function EmailList() {
+    /*function EmailList() {
         let emails = new Array(emailList);
         let population = emails.map(() => (
             <div>
@@ -215,7 +215,7 @@ function Main() {
         ))
         
         setEmailList([population]);
-    } EmailList();
+    } */
 
     function AddInput(){
         setEmailList([...emailList, ""]);

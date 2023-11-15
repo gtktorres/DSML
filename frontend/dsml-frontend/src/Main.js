@@ -9,6 +9,7 @@ and an ai procured description
 import './Main.css';
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
+import 'dotenv/config';
 
 const customStyles = {
   content: {
@@ -37,6 +38,8 @@ function Main() {
     const [addUserModalIsOpen, setAddUserModalIsOpen] = useState(false);
     const [removeUserModalIsOpen, setRemoveUserModalIsOpen] = useState(false);
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [signerList, setSignerList] = useState([]);
     const [emailList, setEmailList] = useState([]);
 
     
@@ -107,9 +110,21 @@ function Main() {
         setAccountID(string);
     }
 
+    function provideName(string){
+        setName(string);
+    }
+    
     function provideEmail(string){
         setEmail(string);
-        setEmailList([...emailList, email]);
+    }
+    //need to figure out a way to expand the original list
+    //since these are existing signature requests they have an 'emailist' already
+    //we need to make a list that consists of the original list and append
+    //the new additions
+    function provideUsers( _name, _email){
+        setName(_name);
+        setEmail(_email);
+        setEmailList([...emailList, (name, email, emailList.length)]);
     }
 
     function GetSignatureID(requestSignatures){
@@ -183,6 +198,7 @@ function Main() {
       .then((data) => {
             console.log(data);
             setSignatureRequest(data);
+            signatureRequest.signers.forEach(signer)
       })
       .catch((err) => {
         console.log(err.message);
@@ -202,30 +218,47 @@ function Main() {
       openSigReqModal();
     }
 
-    function SendSignatureRequest(requestSignatures){
-        fetch(`http://localhost:5079/api/DropboxSign/?accountId=${accountID}`, myInit)
+    /*needs to send a new signature request with a revised list of signors
+      need to determine a way to update the signature request or
+      create a new one to send in it's place
+    */
+    function SendSignatureRequest(){
+
+        emailList.forEach(e => setSignerList([...signerList, (e.name, e.email, signerList.length)]));
+        
+        var signatureRequestCreateEmbeddedRequest = {
+            client_id: `${process.env.CLIENT_ID}`,
+            title: signatureRequest.title,
+            subject: signatureRequest.subject,
+            message: signatureRequest.message,
+            signers: signerList,
+            file_urls: signatureRequest.file_urls,
+            signing_options: signatureRequest.signing_options,
+            test_mode: signatureRequest.test_mode
+        }
+
+        fetch(`http://localhost:5079/api/DropboxSign/?CreateEmbeddedSignature=${signatureRequestCreateEmbeddedRequest}`, myInit)
         .then((response) => response.json())
         .then((data) => {
-            email = data.account.email_address;
+            console.log(data);
 
-            console.log(email);
-    
-            requestSignatures.forEach(signature => {
-                if(email === signature.signer_email_address) {
-                    GetSignatureRequest(signature.signature_id);
-                }        
-            });
         })
         .catch((err) => {
             console.log(err.message);
         });
+
+        closeAddUserModal();
     }
     
     function EmailList() {
-        provideEmail("");
+        provideUsers("", "");
         let emails = new Array.from(emailList);
         let population = emails.map(() => (
             <div>
+                <input
+                    value={name}
+                    onChange={a => provideName(a.target.value)}
+                ></input>
                 <input
                     value={email}
                     onChange={a => provideEmail(a.target.value)}
@@ -237,7 +270,7 @@ function Main() {
     }
 
     function AddInput(){
-        setEmailList([...emailList, ""]);
+        setEmailList([...emailList, ("",""), emailList.length]);
     }
     
     function AddUserToAgreement(){
@@ -359,7 +392,7 @@ function Main() {
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddInput}>➕</button></div>
                             <div>                               
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SendSignatureRequest}>✔️</button>
-                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={closeAddUserModal}>❌</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={closeRemoveUserModal}>❌</button>
                             </div>
                           </div>
                         </Modal>

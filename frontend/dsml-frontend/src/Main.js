@@ -35,6 +35,7 @@ function Main() {
     const [signatureRequest, setSignatureRequest] = useState([]);
     const [agreementDescription, setAgreementDescription] =useState("");
     const [addUserModalIsOpen, setAddUserModalIsOpen] = useState(false);
+    const [removeUserModalIsOpen, setRemoveUserModalIsOpen] = useState(false);
     const [email, setEmail] = useState("");
     const [emailList, setEmailList] = useState([]);
 
@@ -84,6 +85,22 @@ function Main() {
 
     function closeAddUserModal() {
         setAddUserModalIsOpen(false);
+    }
+
+    function openAddUserModal(){
+        setAddUserModalIsOpen(true);
+    }
+
+    function closeAddUserModal() {
+        setAddUserModalIsOpen(false);
+    }
+
+    function openRemoveUserModal(){
+        setRemoveUserModalIsOpen(true);
+    }
+
+    function closeRemoveUserModal() {
+        setRemoveUserModalIsOpen(false);
     }
 
     function provideAccountID(string){
@@ -203,8 +220,10 @@ function Main() {
             console.log(err.message);
         });
     }
-    /*function EmailList() {
-        let emails = new Array(emailList);
+    
+    function EmailList() {
+        provideEmail("");
+        let emails = new Array.from(emailList);
         let population = emails.map(() => (
             <div>
                 <input
@@ -214,8 +233,8 @@ function Main() {
             </div>
         ))
         
-        setEmailList([population]);
-    } */
+        return population;
+    }
 
     function AddInput(){
         setEmailList([...emailList, ""]);
@@ -243,6 +262,9 @@ function Main() {
          * When a user requests to remove a signer, it would creates a
          * new request that includes the remaining signors. 
          */
+
+        closeSigReqModal();
+        openRemoveUserModal();
     }
       
     return(
@@ -314,7 +336,26 @@ function Main() {
                         >
                           <div>
                             <div>
-                                <emailList />
+                                <EmailList />
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddInput}>➕</button></div>
+                            <div>                               
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SendSignatureRequest}>✔️</button>
+                                <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={closeAddUserModal}>❌</button>
+                            </div>
+                          </div>
+                        </Modal>
+                    </div>
+                    <div>
+                        <Modal
+                        isOpen={removeUserModalIsOpen}
+                        onAfterOpen={afterOpenModal}
+                        onRequestClose={closeRemoveUserModal}
+                        style={customStyles}
+                        contentLabel="Remove User Modal"
+                        >
+                          <div>
+                            <div>
+                                <EmailList />
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={AddInput}>➕</button></div>
                             <div>                               
                                 <button type="button" class="btn btn-primary btn-sm px-4 gap-3" onClick={SendSignatureRequest}>✔️</button>

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\chatGPT",
+    "\\chatGPT\\bin"
   ],
-  "SelectedNode": "\\backend.sln",
+  "SelectedNode": "\\chatGPT\\obj",
   "PreviewInSolutionExplorer": false
 }

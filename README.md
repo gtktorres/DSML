@@ -17,7 +17,8 @@ In addition to adding and removing signers, the user will be able to sign a prex
 
 ### Installing
 
-* npm i react
+* npm install discord.js
+* pip install django
 
 ## Authors
 Guevara Torres

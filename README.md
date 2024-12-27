@@ -4,9 +4,9 @@ Digital Signature Machine Learning
 
 ## Description
 
-An innovative software prototype that will improve life for anyone that needs to sign a document online. 
-This will be done by allowing the user to receive information pertaining to legal agreemnent type and a brief description on the document that is to be signed. 
-In addition to adding and removing signers, the user will be able to sign a prexisting document within the dropbox system.
+An innovative software prototype that will improve life for anyone who needs to sign a document online. 
+This will be done by allowing the user to receive information by legal agreement type and a brief description of the document to be signed. 
+In addition to adding and removing signers, the user can sign a preexisting document within the Dropbox system.
 
 ## Getting Started
 
